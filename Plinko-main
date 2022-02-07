@@ -1,0 +1,216 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+
+int userSelection;
+double newPosition;
+const int RANDOM_SEED = 42;
+srand(RANDOM_SEED);
+
+cout << "Welcome to the Plinko simulator! Enter 3 to see options." << endl;
+cout << endl;
+
+
+while (9 == 9) {
+int slotChoice = 9;
+while ((slotChoice < 0) || (slotChoice > 8)) {
+
+cout << "Enter your selection now:" << endl;
+cin >> userSelection;
+
+if (userSelection == 3) {
+cout << "Menu: Please select one of the following options:" << endl;
+cout << endl;
+cout << "1 - Drop a single chip into one slot" << endl;
+cout << "2 - Drop multiple chips into one slot" << endl;
+cout << "3 - Show the options menu" << endl;
+cout << "4 - Quit the program" << endl;
+}
+
+else if (userSelection == 4) {
+cout << "Goodbye!" << endl;
+
+//system("Pause");
+return 0;
+}
+else if (userSelection == 1) {
+cout << "*** Drop a single chip ***" << endl;
+cout << endl;
+cout << "Which slot do you want to drop the chip in (0-8)?" << endl;
+cin >> slotChoice;
+
+if ((slotChoice < 0) || (slotChoice > 8)) {
+cout << endl;
+cout << "Invalid slot." << endl;
+}
+
+if ((slotChoice >= 0) && (slotChoice <= 8)) {
+
+
+
+newPosition = slotChoice;
+
+cout << "*** Dropping chip into slot " << slotChoice << " ***" << endl;
+cout << "Path: [";
+cout << setprecision(1) << fixed;
+cout << newPosition << ", ";
+for (int i = 0; i < 12; ++i) {
+
+if ((newPosition > 0.0) && (newPosition < 8.0)) {
+int leftOrRight;
+leftOrRight = rand() % 2;
+
+if (leftOrRight == 1) {
+newPosition = newPosition + 0.5;
+}
+else {
+newPosition = newPosition - 0.5;
+}
+
+
+}
+else if (newPosition == 0) {
+newPosition = newPosition + 0.5;
+}
+else if (newPosition == 8) {
+newPosition = newPosition - 0.5;
+}
+
+cout << newPosition;
+
+if (i < 11) {
+cout << ", ";
+}
+}
+cout << "]" << endl;
+
+double finalPosition = 0.0;
+finalPosition = newPosition;
+
+double winningsAmount = 0.0;
+if ((finalPosition == 0) || (finalPosition == 8)) {
+winningsAmount = 100.00;
+}
+if ((finalPosition == 1) || (finalPosition == 7)) {
+winningsAmount = 500.00;
+}
+if ((finalPosition == 2) || (finalPosition == 6)) {
+winningsAmount = 1000.00;
+}
+if ((finalPosition == 3) || (finalPosition == 5)) {
+winningsAmount = 0.00;
+}
+if ((finalPosition == 4)) {
+winningsAmount = 10000.00;
+}
+cout << setprecision(2) << fixed;
+cout << "Winnings: $" << winningsAmount << endl;
+}
+}
+
+else if (userSelection == 2) {
+int chipsAmount = 0;
+
+cout << endl;
+cout << "*** Drop multiple chips ***" << endl;
+cout << endl;
+cout << "How many chips do you want to drop (>0)?" << endl;
+cout << endl;
+cin >> chipsAmount;
+
+if (chipsAmount <= 0) {
+cout << endl;
+cout << "Invalid number of chips." << endl;
+}
+if (chipsAmount > 0) {
+cout << "Which slot do you want to drop the chip in (0-8)?" << endl;
+cin >> slotChoice;
+
+if ((slotChoice < 0) || (slotChoice > 8)) {
+cout << "Invalid slot." << endl;
+}
+
+if ((slotChoice >= 0) && (slotChoice <= 8)) {
+double totalWinnings = 0.00;
+newPosition = slotChoice;
+double winningsAmount = 0.00;
+
+for (int o = 0; o < chipsAmount; ++o) {
+newPosition = slotChoice;
+
+for (int i = 0; i < 12; ++i) {
+
+if ((newPosition > 0.0) && (newPosition < 8.0)) {
+int leftOrRight;
+leftOrRight = rand() % 2;
+
+if (leftOrRight == 1) {
+newPosition = newPosition + 0.5;
+}
+else {
+newPosition = newPosition - 0.5;
+}
+
+
+}
+
+else if (newPosition == 0) {
+newPosition = newPosition + 0.5;
+}
+else if (newPosition == 8) {
+newPosition = newPosition - 0.5;
+}
+}
+
+if ((newPosition == 0.0) || (newPosition == 8.0)) {
+winningsAmount = 100.00;
+}
+if ((newPosition == 1.0) || (newPosition == 7.0)) {
+winningsAmount = 500.00;
+}
+if ((newPosition == 2.0) || (newPosition == 6.0)) {
+winningsAmount = 1000.00;
+}
+if ((newPosition == 3.0) || (newPosition == 5.0)) {
+winningsAmount = 0.00;
+}
+if ((newPosition == 4.0)) {
+winningsAmount = 10000.00;
+}
+
+totalWinnings = totalWinnings + winningsAmount;
+cout << setprecision(2) << fixed;
+
+}
+
+cout << endl;
+cout << "Total winnings on " << chipsAmount << " chips: $" << totalWinnings;
+cout << endl;
+cout << "Average winnings per chip: $" << (totalWinnings / chipsAmount);
+cout << endl;
+
+}
+}
+}
+else {
+cout << "Invalid selection. Enter 3 to see options." << endl;
+
+}
+
+
+
+
+}
+}
+cout << endl;
+cout << "Enter your selection now" << endl;
+cin >> userSelection;
+
+//system("Pause");
+return 0;
+}
